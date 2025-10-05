@@ -2,6 +2,40 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 
 # Getting Started
 
+## Environment Setup
+
+### 1. Environment Variables
+
+Copy the example environment file and configure your settings:
+
+```sh
+cp env.example .env
+```
+
+Edit `.env` file with your configuration:
+
+```env
+# API 설정
+EXPO_PUBLIC_API_URL=http://localhost:8000
+
+# 개발 환경 설정
+NODE_ENV=development
+
+# 기타 설정
+EXPO_PUBLIC_APP_NAME=MyApp
+EXPO_PUBLIC_APP_VERSION=1.0.0
+```
+
+### 2. API Configuration
+
+The app uses environment variables for API configuration. You can modify the API settings in `src/config/api.ts`:
+
+- **Development**: `http://localhost:8000`
+- **Production**: Set `EXPO_PUBLIC_API_URL` environment variable
+- **Custom**: Modify `API_CONFIG` object in `src/config/api.ts`
+
+## Getting Started
+
 > **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
 
 ## Step 1: Start Metro

@@ -16,8 +16,22 @@ const HomeScreen: React.FC = () => {
         </Text>
         
         <Text style={[styles.subtitle, isDark ? styles.subtitleDark : styles.subtitleLight]}>
-          안녕하세요, {user?.name || '사용자'}님!
+          안녕하세요, {user?.full_name || user?.username || '사용자'}님!
         </Text>
+        
+        {user && (
+          <View style={styles.userInfo}>
+            <Text style={[styles.infoText, isDark ? styles.infoTextDark : styles.infoTextLight]}>
+              이메일: {user.email}
+            </Text>
+            <Text style={[styles.infoText, isDark ? styles.infoTextDark : styles.infoTextLight]}>
+              사용자명: {user.username}
+            </Text>
+            <Text style={[styles.infoText, isDark ? styles.infoTextDark : styles.infoTextLight]}>
+              상태: {user.is_active ? '활성' : '비활성'}
+            </Text>
+          </View>
+        )}
 
         <TouchableOpacity
           style={[styles.button, { backgroundColor: isDark ? '#007AFF' : '#007AFF' }]}
@@ -80,6 +94,22 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 16,
     fontWeight: '600',
+  },
+  userInfo: {
+    marginBottom: 32,
+    padding: 16,
+    borderRadius: 8,
+    backgroundColor: 'rgba(0, 122, 255, 0.1)',
+  },
+  infoText: {
+    fontSize: 14,
+    marginBottom: 4,
+  },
+  infoTextLight: {
+    color: '#6C757D',
+  },
+  infoTextDark: {
+    color: '#8E8E93',
   },
 });
 

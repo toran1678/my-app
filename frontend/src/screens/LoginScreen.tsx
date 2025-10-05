@@ -5,25 +5,24 @@ import { useAuthStore } from '../stores/useAuthStore';
 import { useThemeStore } from '../stores/useThemeStore';
 
 const LoginScreen: React.FC = () => {
-  const { login } = useAuthStore();
+  const { login, isLoading } = useAuthStore();
   const { isDark } = useThemeStore();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!email || !password) {
       Alert.alert('오류', '이메일과 비밀번호를 입력해주세요.');
       return;
     }
 
-    // 간단한 로그인 로직 (실제로는 API 호출)
-    const user = {
-      id: '1',
-      name: '사용자',
-      email: email,
-    };
-    
-    login(user);
+    try {
+      // 실제 API를 통한 로그인
+      await login(email, password);
+      Alert.alert('성공', '로그인되었습니다!');
+    } catch (error) {
+      Alert.alert('로그인 실패', error instanceof Error ? error.message : '로그인에 실패했습니다.');
+    }
   };
 
   return (
@@ -61,10 +60,19 @@ const LoginScreen: React.FC = () => {
         />
 
         <TouchableOpacity
-          style={[styles.button, { backgroundColor: isDark ? '#007AFF' : '#007AFF' }]}
+          style={[
+            styles.button, 
+            { 
+              backgroundColor: isDark ? '#007AFF' : '#007AFF',
+              opacity: isLoading ? 0.6 : 1
+            }
+          ]}
           onPress={handleLogin}
+          disabled={isLoading}
         >
-          <Text style={styles.buttonText}>로그인</Text>
+          <Text style={styles.buttonText}>
+            {isLoading ? '로그인 중...' : '로그인'}
+          </Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
